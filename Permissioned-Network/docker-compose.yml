@@ -1,0 +1,100 @@
+services:
+  ethsigner-instituicaoa:
+    image: consensys/ethsigner:21.10.0
+    container_name: ethsigner-instituicaoa
+    restart: unless-stopped
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./keyA.json:/opt/ethsigner/keyA.json:ro
+      - ./password.txt:/opt/ethsigner/password.txt:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command:
+      - "--chain-id=1337"
+      - "--http-listen-host=0.0.0.0"
+      - "--http-listen-port=8545"
+      - "--downstream-http-host=host.docker.internal"
+      - "--downstream-http-port=8546" #porta node1
+      - "file-based-signer"
+      - "--key-file=/opt/ethsigner/keyA.json"
+      - "--password-file=/opt/ethsigner/password.txt"
+
+  ethsigner-instituicaob:
+    image: consensys/ethsigner:21.10.0
+    container_name: ethsigner-instituicaob
+    restart: unless-stopped
+    ports:
+      - "8555:8555"
+    volumes:
+      - ./keyB.json:/opt/ethsigner/keyB.json:ro
+      - ./password.txt:/opt/ethsigner/password.txt:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command:
+      - "--chain-id=1337"
+      - "--http-listen-host=0.0.0.0"
+      - "--http-listen-port=8555"
+      - "--downstream-http-host=host.docker.internal"
+      - "--downstream-http-port=8550" #porta node5
+      - "file-based-signer"
+      - "--key-file=/opt/ethsigner/keyB.json"
+      - "--password-file=/opt/ethsigner/password.txt"
+
+  ethsigner-secretaria:
+      image: consensys/ethsigner:21.10.0
+      container_name: ethsigner-secretaria
+      restart: unless-stopped
+      ports:
+        - "8565:8565"
+      volumes:
+        - ./keySecretaria.json:/opt/ethsigner/keySecretaria.json:ro 
+        - ./password.txt:/opt/ethsigner/password.txt:ro
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+      command:
+        - "--chain-id=1337"
+        - "--http-listen-host=0.0.0.0"
+        - "--http-listen-port=8565"
+        - "--downstream-http-host=host.docker.internal"
+        - "--downstream-http-port=8549" #porta node4
+        - "file-based-signer"
+        - "--key-file=/opt/ethsigner/keySecretaria.json"
+        - "--password-file=/opt/ethsigner/password.txt"
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: besu-prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: besu-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  mongodb:
+    image: mongo:latest
+    container_name: besu-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+  prometheus_data:
+  grafana_data:

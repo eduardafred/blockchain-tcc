@@ -1,0 +1,1 @@
+{"version":3,"file":"blockchain.d.ts","sourceRoot":"","sources":["blockchain.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,QAAQ,CAAC;AAchC,eAAO,MAAM,cAAc;IACzB,YAAY;IACZ,YAAY;IACZ,UAAU;CACX,CAAC;AAEF,MAAM,MAAM,SAAS,GAAG,cAAc,GAAG,cAAc,GAAG,YAAY,CAAC;AAEvE,wBAAsB,mBAAmB,CAAC,KAAK,EAAE,SAAS,4BAWzD"}

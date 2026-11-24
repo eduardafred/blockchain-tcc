@@ -1,0 +1,33 @@
+# ==========================================
+# INFRAESTRUTURA DA REDE (BESU / ETHSIGNER)
+# ==========================================
+# Ignora as pastas de dados, banco e logs de cada nó
+**/data/
+**/database/
+**/caches/
+**/logs/
+besu.networks
+besu.ports
+DATABASE_METADATA.json
+LOCK
+
+# Ignora chaves privadas, senhas e arquivos de segredo
+*.key
+*.pem
+*.p12
+*.jks
+key
+key.priv
+password.txt
+secrets/
+ethsigner/keys/
+
+# ==========================================
+# APLICAÇÃO E AMBIENTE
+# ==========================================
+.env
+.env.*
+!.env.example
+node_modules/
+artifacts/
+cache/

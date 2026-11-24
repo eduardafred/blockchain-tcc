@@ -1,0 +1,51 @@
+{
+  "configuracao": {
+    "TPS_INICIAL": 5,
+    "TPS_PASSO": 5,
+    "TPS_MAX": 100,
+    "PASSO_S": 30,
+    "LIMITE_ERRO": 0.05,
+    "MAX_PENDENTES": 1000,
+    "RECUP_TPS": 2,
+    "RECUP_S": 90,
+    "rpcA": "http://localhost:8546",
+    "rpcB": "http://localhost:8550"
+  },
+  "motivoParada": "erros de envio acima de 5% no degrau de 5 tx/s",
+  "degraus": [
+    {
+      "degrau": 1,
+      "tpsAlvo": 5,
+      "tpsEnviado": 5,
+      "tpsConfirmado": 3.1,
+      "enviadas": 149,
+      "confirmadas": 96,
+      "errosEnvio": 51,
+      "semConfirmacao": 2,
+      "revertidas": 0,
+      "p50ms": 1278,
+      "p95ms": 2360,
+      "p99ms": 2964
+    },
+    {
+      "degrau": "recuperação",
+      "tpsAlvo": 2,
+      "tpsEnviado": 2,
+      "tpsConfirmado": 2,
+      "enviadas": 179,
+      "confirmadas": 179,
+      "errosEnvio": 0,
+      "semConfirmacao": 0,
+      "revertidas": 0,
+      "p50ms": 1042,
+      "p95ms": 2011,
+      "p99ms": 2040
+    }
+  ],
+  "consistencia": {
+    "totalAntes": "46801",
+    "totalDepois": "47124",
+    "confirmados": "275",
+    "confere": false
+  }
+}
